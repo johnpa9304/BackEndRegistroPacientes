@@ -21,7 +21,7 @@ class CreatePacientesTable extends Migration
             $table->boolean('covid19');
             $table->string('cita', 20);
             $table->string('doctor', 50);
-            $table->string('sintomas');
+            $table->string('sintomas')->nullable();
             $table->string('medicinas');
             $table->text('description');
             $table->timestamps();

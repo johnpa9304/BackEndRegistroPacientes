@@ -30,7 +30,7 @@ class CreatePacienteRequest extends FormRequest
             'covid19' => 'required',
             'cita' => 'required|min:2|max:20',
             'doctor' => 'required|min:2|max:50',
-            'sintomas' => 'required|min:2|max:255',
+            'sintomas' => 'min:2|max:255',
             'medicinas' => 'required|min:2|max:255',
             'description' => 'required'
         ];

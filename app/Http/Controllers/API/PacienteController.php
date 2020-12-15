@@ -28,18 +28,6 @@ class PacienteController extends Controller
      */
     public function store(CreatePacienteRequest $request)
     {
-        /*$paciente = new Paciente();
-        $paciente->nombre = $request["nombre"];
-        $paciente->apellido = $request["apellido"];
-        $paciente->cedula = $request["cedula"];
-        $paciente->covid19 = $request["covid19"];
-        $paciente->cita = $request["cita"];
-        $paciente->sintomas = $request["sintomas"];
-        $paciente->medicinas = $request["medicinas"];
-        $paciente->description = $request["description"];
-
-        $paciente->save();*/
-
         $input = $request->all();
         Paciente::create($input);
         return response()->json([
@@ -68,15 +56,6 @@ class PacienteController extends Controller
      */
     public function update(UpdatePacienteRequest $request, Paciente $paciente)
     {
-        /*$paciente->nombre = $request["nombre"];
-        $paciente->apellido = $request["apellido"];
-        $paciente->cedula = $request["cedula"];
-        $paciente->covid19 = $request["covid19"];
-        $paciente->cita = $request["cita"];
-        $paciente->sintomas = $request["sintomas"];
-        $paciente->medicinas = $request["medicinas"];
-        $paciente->description = $request["description"];
-        */
         $input = $request->all();
         $paciente->update($input);
         return response()->json([
