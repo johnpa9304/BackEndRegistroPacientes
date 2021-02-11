@@ -3,21 +3,26 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreatePacienteRequest;
-use App\Http\Requests\UpdatePacienteRequest;
-use App\Models\Paciente;
+use App\Http\Requests\CreatePatientRequest;
+use App\Http\Requests\UpdatePatientRequest;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
-class PacienteController extends Controller
+class PatientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Paciente::all();
+        if($request->has('txtBuscar')){
+            $pacientes = Patient::where('nombre', 'like', '%'.$request->txtBuscar.'%')->get();
+        }else{
+            $pacientes = Patient::all();
+        }
+        return $pacientes;
     }
 
     /**
@@ -26,14 +31,14 @@ class PacienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreatePacienteRequest $request)
+    public function store(CreatePatientRequest $request)
     {
         $input = $request->all();
-        Paciente::create($input);
+        Patient::create($input);
         return response()->json([
             'res' => true,
-            'message' => 'Registro creado correctamente'
-        ], 200);
+            'message' => 'Paciente creado correctamente'
+        ], 201);
     }
 
     /**
@@ -42,9 +47,9 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Paciente $paciente)
+    public function show(Patient $patient)
     {
-        return $paciente;
+        return $patient;
     }
 
     /**
@@ -54,14 +59,14 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePacienteRequest $request, Paciente $paciente)
+    public function update(UpdatePatientRequest $request, Patient $patient)
     {
         $input = $request->all();
-        $paciente->update($input);
+        $patient->update($input);
         return response()->json([
             'res' => true,
-            'message' => 'Registro actualizado correctamente'
-        ], 200);
+            'message' => 'Paciente actualizado correctamente'
+        ], 201);
     }
 
     /**
@@ -72,10 +77,10 @@ class PacienteController extends Controller
      */
     public function destroy($id)
     {
-        Paciente::destroy($id);
+        Patient::destroy($id);
         return response()->json([
             'res' => true,
-            'message' => 'Registro borrado correctamente'
+            'message' => 'Paciente eliminado correctamente'
         ], 200);
     }
 }

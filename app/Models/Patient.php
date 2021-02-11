@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Paciente extends Model
+class Patient extends Model
 {
     use HasFactory;
 
-    protected $table = "pacientes";
+    protected $table = 'patients';
 
     protected $fillable = [
         'nombre',
         'apellido',
         'cedula',
-        'covid19',
-        'cita',
-        'doctor',
-        'sintomas',
-        'medicinas',
-        'description',
+        'edad',
     ];
+
+    public function records()
+    {
+        return $this->hasMany(Record::class);
+    }
 }

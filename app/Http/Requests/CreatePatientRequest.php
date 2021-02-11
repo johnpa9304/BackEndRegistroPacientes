@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePacienteRequest extends FormRequest
+class CreatePatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,8 @@ class CreatePacienteRequest extends FormRequest
         return [
             'nombre' => 'required|min:2|max:30',
             'apellido' => 'required|min:2|max:30',
-            'cedula' => 'required|unique:pacientes,cedula|min:10|max:10',
-            'covid19' => 'required',
-            'cita' => 'required|min:2|max:20',
-            'doctor' => 'required|min:2|max:50',
-            'sintomas' => 'min:2|max:255',
-            'medicinas' => 'required|min:2|max:255',
-            'description' => 'required'
+            'cedula' => 'required|unique:patients,cedula|min:10|max:10',
+            'edad' => 'required',
         ];
     }
 }

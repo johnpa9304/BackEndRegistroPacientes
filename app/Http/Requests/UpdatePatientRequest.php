@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePacienteRequest extends FormRequest
+class UpdatePatientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,8 @@ class UpdatePacienteRequest extends FormRequest
         return [
             'nombre' => 'required|min:2|max:30',
             'apellido' => 'required|min:2|max:30',
-            'cedula' => 'required|min:10|max:10|unique:pacientes,cedula,' . $this->route('paciente')->id,
-            'covid19' => 'required',
-            'cita' => 'required|min:2|max:20',
-            'doctor' => 'required|min:2|max:50',
-            'sintomas' => 'min:2|max:255',
-            'medicinas' => 'required|min:2|max:255',
-            'description' => 'required'
+            'cedula' => 'required|min:10|max:10|unique:patients,cedula,'.$this->route('patient')->id,
+            'edad' => 'required',
         ];
     }
 }
