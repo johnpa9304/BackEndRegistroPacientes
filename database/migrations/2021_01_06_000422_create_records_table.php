@@ -17,7 +17,7 @@ class CreateRecordsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('doctor_id');
-            $table->time('cita');
+            $table->date('cita');
             $table->string('sintomas')->nullable();
             $table->string('medicinas');
             $table->boolean('covid19');

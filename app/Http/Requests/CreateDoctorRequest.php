@@ -13,7 +13,7 @@ class CreateDoctorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class CreateDoctorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre' => 'required|min:2|max:30',
+            'apellido' => 'required|min:2|max:30',
+            'cedula' => 'required|unique:doctors,cedula|min:10|max:10',
+            'Especialidad' => 'required|min:2|max:255',
         ];
     }
 }

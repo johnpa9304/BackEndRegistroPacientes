@@ -13,7 +13,7 @@ class CreateRecordRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class CreateRecordRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'patient_id' => 'required',
+            'doctor_id' => 'required',
+            'cita' => 'required',
+            'sintomas' => 'nullable|min:2|max:255',
+            'medicinas' => 'required|min:2|max:255',
+            'covid19' => 'required',
+            'description' => 'required',
         ];
     }
 }

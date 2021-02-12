@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateDoctorRequest;
+use App\Http\Requests\UpdateDoctorRequest;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -12,9 +15,14 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->has('txtBuscar')){
+            $doctores = Doctor::where('nombre', 'like', '%'.$request->txtBuscar.'%')->get();
+        }else{
+            $doctores = Doctor::all();
+        }
+        return $doctores;
     }
 
     /**
@@ -23,9 +31,14 @@ class DoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateDoctorRequest $request)
     {
-        //
+        $input = $request->all();
+        Doctor::create($input);
+        return response()->json([
+            'res' => true,
+            'message' => 'Doctor creado correctamente'
+        ], 201);
     }
 
     /**
@@ -34,9 +47,9 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Doctor $doctor)
     {
-        //
+        return $doctor;
     }
 
     /**
@@ -46,9 +59,14 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDoctorRequest $request, Doctor $doctor)
     {
-        //
+        $input = $request->all();
+        $doctor->update($input);
+        return response()->json([
+            'res' => true,
+            'message' => 'Doctor actualizado correctamente'
+        ], 201);
     }
 
     /**
@@ -59,6 +77,10 @@ class DoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Doctor::destroy($id);
+        return response()->json([
+            'res' => true,
+            'message' => 'Doctor eliminado correctamente'
+        ], 200);
     }
 }

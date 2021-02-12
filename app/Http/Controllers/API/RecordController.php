@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateRecordRequest;
+use App\Http\Requests\UpdateRecordRequest;
+use App\Models\Record;
 use Illuminate\Http\Request;
 
 class RecordController extends Controller
@@ -12,9 +15,14 @@ class RecordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->has('txtBuscar')){
+            $doctores = Record::where('patient_id', 'like', '%'.$request->txtBuscar.'%')->get();
+        }else{
+            $doctores = Record::all();
+        }
+        return $doctores;
     }
 
     /**
@@ -23,9 +31,14 @@ class RecordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRecordRequest $request)
     {
-        //
+        $input = $request->all();
+        Record::create($input);
+        return response()->json([
+            'res' => true,
+            'message' => 'Registro creado correctamente'
+        ], 201);
     }
 
     /**
@@ -34,9 +47,9 @@ class RecordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Record $record)
     {
-        //
+        return $record;
     }
 
     /**
@@ -46,9 +59,14 @@ class RecordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRecordRequest $request, Record $record)
     {
-        //
+        $input = $request->all();
+        $record->update($input);
+        return response()->json([
+            'res' => true,
+            'message' => 'Registro actualizado correctamente'
+        ], 201);
     }
 
     /**
@@ -59,6 +77,10 @@ class RecordController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Record::destroy($id);
+        return response()->json([
+            'res' => true,
+            'message' => 'Registro eliminado correctamente'
+        ], 200);
     }
 }

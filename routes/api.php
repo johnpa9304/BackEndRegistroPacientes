@@ -20,4 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::ApiResource('patients', 'App\Http\Controllers\API\PatientController');
-
+Route::ApiResource('doctors', 'App\Http\Controllers\API\DoctorController');
+Route::ApiResource('records', 'App\Http\Controllers\API\RecordController');
