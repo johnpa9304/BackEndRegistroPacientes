@@ -18,7 +18,7 @@ class RecordController extends Controller
     public function index(Request $request)
     {
         if($request->has('txtBuscar')){
-            $doctores = Record::where('patient_id', 'like', '%'.$request->txtBuscar.'%')->get();
+            $doctores = Record::where('patient_id', $request->txtBuscar)->get();
         }else{
             $doctores = Record::all();
         }
